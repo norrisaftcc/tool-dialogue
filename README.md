@@ -1,4 +1,10 @@
-# venv stuff
+# tool-dialogue
+
+intended as a basic twine alternative that didn't require any external tools. Just load the json and play. Editor as a separate program.
+
+the 80s terminal aesthetic is to evoke a time when carefully staring at a menu before clicking was high gameplay.
+
+# Running the tool (part 1 -- venv stuff)
 
 I see you're now in your project directory and tried to create a virtual environment but got the usage instructions instead. Let's pick up from here and set up both Streamlit and Node.js properly.
 
