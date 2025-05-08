@@ -1,0 +1,401 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "title": "Space Station Inquiry",
+    "author": "Claude Code",
+    "creation_date": "2025-05-07",
+    "description": "A dialogue with crew members of a space station, featuring character portraits"
+  },
+  "starting_dialogue": "station_intro",
+  "dialogues": [
+    {
+      "id": "station_intro",
+      "npc": "Commander Chen",
+      "image_url": "https://img.freepik.com/free-photo/portrait-serious-asian-male-astronaut-spacesuit-ai-generated_60438-2539.jpg",
+      "text": "Welcome to Orbital Station Alpha. I'm Commander Chen, the officer in charge of this facility.\n\nHow may I assist you today, visitor?",
+      "responses": [
+        {
+          "id": "ask_about_station",
+          "text": "> Tell me about this station",
+          "next_dialogue": "station_description",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "ask_about_crew",
+          "text": "> Who else is on the station?",
+          "next_dialogue": "station_crew",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "ask_about_mission",
+          "text": "> What's your mission here?",
+          "next_dialogue": "station_mission",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "station_description",
+      "npc": "Commander Chen",
+      "image_url": "https://img.freepik.com/free-photo/portrait-serious-asian-male-astronaut-spacesuit-ai-generated_60438-2539.jpg",
+      "text": "Orbital Station Alpha is our most advanced research platform, constructed in 2032 and positioned in low Earth orbit.\n\nThe station consists of 7 modules: Command, Habitation, Laboratory, Observatory, Engineering, Docking, and Hydroponics. We're completely self-sufficient with recycling systems and can support up to 12 crew members for extended missions.",
+      "responses": [
+        {
+          "id": "ask_about_research",
+          "text": "> What research happens here?",
+          "next_dialogue": "station_research",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_to_intro",
+          "text": "> I'd like to ask about something else",
+          "next_dialogue": "station_intro",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "station_research",
+      "npc": "Dr. Eliza Wong",
+      "image_url": "https://img.freepik.com/free-photo/beautiful-woman-spacesuit-standing-laboratory-generative-ai_188544-9633.jpg",
+      "text": "I'm Dr. Eliza Wong, Lead Researcher on the station. We conduct various experiments here that benefit from zero gravity conditions.\n\nOur primary focus areas are materials science, fluid dynamics, and biological adaptation to space environments. The absence of gravity allows us to create perfect crystal structures and observe fluid behaviors impossible on Earth.",
+      "responses": [
+        {
+          "id": "ask_about_discoveries",
+          "text": "> Have you made any important discoveries?",
+          "next_dialogue": "station_discoveries",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_to_chen",
+          "text": "> I'd like to speak with Commander Chen again",
+          "next_dialogue": "station_intro",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "station_discoveries",
+      "npc": "Dr. Eliza Wong",
+      "image_url": "https://img.freepik.com/free-photo/beautiful-woman-spacesuit-standing-laboratory-generative-ai_188544-9633.jpg",
+      "text": "Our most significant breakthroughs have been in pharmaceutical crystallization. We've created several compounds with perfect structures that have led to more effective medications on Earth.\n\nWe've also made advances in understanding how microgravity affects the human body - our research has directly contributed to improved countermeasures against bone and muscle loss for long-duration space missions.",
+      "responses": [
+        {
+          "id": "thank_doctor",
+          "text": "> That's fascinating. Thank you for the information.",
+          "next_dialogue": "station_intro",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "station_crew",
+      "npc": "Commander Chen",
+      "image_url": "https://img.freepik.com/free-photo/portrait-serious-asian-male-astronaut-spacesuit-ai-generated_60438-2539.jpg",
+      "text": "We currently have 8 crew members aboard:\n\n• Myself as Station Commander\n• Dr. Eliza Wong, Lead Researcher\n• Lt. Marcus Rivera, Flight Engineer\n• Dr. Sasha Petrov, Medical Officer\n• Specialist Jamal Carter, Systems Technician\n• Dr. Ling Zhao, Botanist\n• Specialist Aisha Nkosi, Communications\n• Lt. Kim Mason, Security Officer\n\nWould you like to meet any of them?",
+      "responses": [
+        {
+          "id": "meet_engineer",
+          "text": "> I'd like to meet the Flight Engineer",
+          "next_dialogue": "meet_rivera",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "meet_doctor",
+          "text": "> I'd like to meet the Medical Officer",
+          "next_dialogue": "meet_petrov",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_to_intro_from_crew",
+          "text": "> Maybe later",
+          "next_dialogue": "station_intro",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "meet_rivera",
+      "npc": "Lt. Marcus Rivera",
+      "image_url": "https://img.freepik.com/free-photo/young-male-astronaut-wearing-blue-suit-posing-with-white-helmet_23-2150320723.jpg",
+      "text": "Lieutenant Marcus Rivera, Flight Engineer. I handle propulsion systems, station orientation, and orbital adjustments.\n\nI've been up here for about 7 months now. It's my second rotation on Alpha. My main responsibility is keeping us in the right orbit and making sure we don't get hit by space debris. There's a lot more junk up here than people realize.",
+      "responses": [
+        {
+          "id": "ask_engineering_challenge",
+          "text": "> What's your biggest engineering challenge?",
+          "next_dialogue": "rivera_challenge",
+          "script": "StartQuest_engineering_tour",
+          "condition": null
+        },
+        {
+          "id": "return_to_crew_rivera",
+          "text": "> Thanks for the introduction",
+          "next_dialogue": "station_crew",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "rivera_challenge",
+      "npc": "Lt. Marcus Rivera",
+      "image_url": "https://img.freepik.com/free-photo/young-male-astronaut-wearing-blue-suit-posing-with-white-helmet_23-2150320723.jpg",
+      "text": "The biggest challenge? Maintaining efficiency in our reaction control system. We use precise bursts from our thrusters to adjust our position, but the fuel is limited and expensive to replace.\n\nI've implemented a new algorithm that reduced our fuel consumption by 17% while maintaining the same orbital precision. Would you like to see the engineering bay?",
+      "responses": [
+        {
+          "id": "accept_tour",
+          "text": "> I'd love to see the engineering bay",
+          "next_dialogue": "engineering_bay",
+          "script": "UpdateQuest_engineering_tour_1",
+          "condition": null
+        },
+        {
+          "id": "decline_tour",
+          "text": "> Maybe another time",
+          "next_dialogue": "station_crew",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "engineering_bay",
+      "npc": "Lt. Marcus Rivera",
+      "image_url": "https://img.freepik.com/free-photo/young-male-astronaut-wearing-blue-suit-posing-with-white-helmet_23-2150320723.jpg",
+      "text": "Welcome to the Engineering Bay! This is where we monitor and control all the station's critical systems.\n\nThose screens show our current orbital parameters, thruster status, and power distribution. The central console is for manual override if the automated systems fail.\n\nOver there is our workshop where we can fabricate replacement parts. The 3D printer can work with various metals and polymers.",
+      "responses": [
+        {
+          "id": "ask_about_systems",
+          "text": "> Tell me about the life support systems",
+          "next_dialogue": "life_support",
+          "script": "UpdateQuest_engineering_tour_2",
+          "condition": null
+        },
+        {
+          "id": "thank_for_tour",
+          "text": "> Thanks for showing me around",
+          "next_dialogue": "station_crew",
+          "script": "CompleteQuest_engineering_tour",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "life_support",
+      "npc": "Lt. Marcus Rivera",
+      "image_url": "https://img.freepik.com/free-photo/young-male-astronaut-wearing-blue-suit-posing-with-white-helmet_23-2150320723.jpg",
+      "text": "Our life support systems are the most critical on the station. We have triple redundancy for oxygen generation, carbon dioxide scrubbing, and temperature control.\n\nThe primary system uses a combination of mechanical carbon dioxide removal and electrolysis for oxygen generation. Water is split into hydrogen and oxygen - we breathe the oxygen and use the hydrogen for various processes.\n\nThe backup systems include chemical oxygen generators and LiOH scrubbers similar to those used on the old Space Shuttle.",
+      "responses": [
+        {
+          "id": "finish_engineering_tour",
+          "text": "> Fascinating. Thanks for the detailed explanation.",
+          "next_dialogue": "station_crew",
+          "script": "CompleteQuest_engineering_tour",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "meet_petrov",
+      "npc": "Dr. Sasha Petrov",
+      "image_url": "https://img.freepik.com/free-photo/pretty-doctor-coat-looking-camera_23-2147893831.jpg",
+      "text": "Hello, I'm Dr. Sasha Petrov, Medical Officer for Station Alpha. I monitor the crew's health and provide medical care as needed.\n\nSpace medicine is a fascinating specialty - we deal with unique conditions like muscle atrophy, bone density loss, and fluid redistribution that occurs in microgravity. I also conduct research on radiation exposure countermeasures.",
+      "responses": [
+        {
+          "id": "ask_medical_challenges",
+          "text": "> What medical challenges are unique to space?",
+          "next_dialogue": "medical_challenges",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_to_crew_petrov",
+          "text": "> Thanks for the introduction",
+          "next_dialogue": "station_crew",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "medical_challenges",
+      "npc": "Dr. Sasha Petrov",
+      "image_url": "https://img.freepik.com/free-photo/pretty-doctor-coat-looking-camera_23-2147893831.jpg",
+      "text": "The human body evolved for Earth's gravity, so removing that creates numerous issues:\n\n• Bone density decreases at about 1-2% per month without countermeasures\n• Muscles atrophy rapidly without resistance\n• Fluids shift upward, causing facial puffiness and increased intracranial pressure\n• The immune system becomes less effective\n• The cardiovascular system adapts to the point where astronauts can faint when returning to gravity\n\nWe combat these with exercise, medication, and specialized nutrition. Still, long-duration spaceflight remains physically demanding.",
+      "responses": [
+        {
+          "id": "ask_about_psychology",
+          "text": "> What about psychological challenges?",
+          "next_dialogue": "space_psychology",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_to_crew_from_medical",
+          "text": "> That's very informative, thank you",
+          "next_dialogue": "station_crew",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "space_psychology",
+      "npc": "Dr. Sasha Petrov",
+      "image_url": "https://img.freepik.com/free-photo/pretty-doctor-coat-looking-camera_23-2147893831.jpg",
+      "text": "Psychological health is just as important as physical health in space. Our crew members deal with:\n\n• Isolation from family and friends\n• Confinement in a small space\n• Altered sleep patterns due to seeing 16 sunrises daily\n• Stress from the inherent dangers of space\n• Limited privacy\n\nWe conduct regular psychological evaluations and provide support services. The crew also has scheduled recreation time and communication sessions with family. Group activities are important for maintaining crew cohesion and morale.",
+      "responses": [
+        {
+          "id": "thank_doctor_psych",
+          "text": "> Thank you for sharing these insights",
+          "next_dialogue": "station_crew",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "station_mission",
+      "npc": "Commander Chen",
+      "image_url": "https://img.freepik.com/free-photo/portrait-serious-asian-male-astronaut-spacesuit-ai-generated_60438-2539.jpg",
+      "text": "Our mission is threefold:\n\n1. Scientific research that benefits from the microgravity environment\n2. Testing technologies for future deep space missions\n3. Serving as a hub for commercial space activities\n\nWe're part of the International Space Coalition, with crew members and funding from multiple nations. This collective approach has allowed us to maintain a permanent presence in orbit since the 2020s.",
+      "responses": [
+        {
+          "id": "ask_about_future",
+          "text": "> What's the future of the station?",
+          "next_dialogue": "station_future",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_to_intro_from_mission",
+          "text": "> I understand, thank you",
+          "next_dialogue": "station_intro",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "station_future",
+      "npc": "Commander Chen",
+      "image_url": "https://img.freepik.com/free-photo/portrait-serious-asian-male-astronaut-spacesuit-ai-generated_60438-2539.jpg",
+      "text": "Station Alpha is designed to operate until at least 2040, but with regular upgrades and module replacements, we expect it to continue beyond that.\n\nWe're already planning the next expansion - a manufacturing module that will take advantage of microgravity for producing high-value materials. The commercial potential is enormous.\n\nLong-term, stations like Alpha will serve as stepping stones to permanent lunar bases and Mars missions. The lessons we learn here directly influence those future endeavors.",
+      "responses": [
+        {
+          "id": "express_admiration",
+          "text": "> That's an inspiring vision",
+          "next_dialogue": "chen_conclusion",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_to_intro_from_future",
+          "text": "> Thank you for sharing that",
+          "next_dialogue": "station_intro",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "chen_conclusion",
+      "npc": "Commander Chen",
+      "image_url": "https://img.freepik.com/free-photo/portrait-serious-asian-male-astronaut-spacesuit-ai-generated_60438-2539.jpg",
+      "text": "I'm glad you share our enthusiasm. Space exploration represents the best of humanity - our curiosity, cooperation, and determination to expand beyond our planetary cradle.\n\nEven with all the challenges, there's nothing quite like looking back at Earth from orbit. That perspective changes you forever.\n\nThank you for visiting Station Alpha. You're welcome back anytime.",
+      "responses": [
+        {
+          "id": "final_goodbye",
+          "text": "> Thank you, Commander. It's been enlightening.",
+          "next_dialogue": null,
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    }
+  ],
+  "quests": [
+    {
+      "id": "engineering_tour",
+      "title": "Engineering Tour",
+      "description": "Tour the engineering systems of Station Alpha with Lt. Rivera.",
+      "stages": [
+        {
+          "id": 1,
+          "description": "Begin the engineering tour",
+          "journal_entry": "Lt. Rivera has offered to show me the engineering bay of Station Alpha.",
+          "on_complete": null
+        },
+        {
+          "id": 2,
+          "description": "View the engineering bay",
+          "journal_entry": "I'm exploring the engineering bay and learning about the station's critical systems.",
+          "on_complete": null
+        },
+        {
+          "id": 3,
+          "description": "Complete the tour",
+          "journal_entry": "I've completed my tour of the engineering section and learned about life support systems.",
+          "on_complete": null
+        }
+      ],
+      "rewards": {
+        "xp": 50,
+        "items": ["engineering_badge"]
+      }
+    }
+  ],
+  "characters": {
+    "chen": {
+      "name": "Commander Chen",
+      "image_url": "https://img.freepik.com/free-photo/portrait-serious-asian-male-astronaut-spacesuit-ai-generated_60438-2539.jpg",
+      "description": "Station Commander, responsible for overall operations and safety"
+    },
+    "wong": {
+      "name": "Dr. Eliza Wong",
+      "image_url": "https://img.freepik.com/free-photo/beautiful-woman-spacesuit-standing-laboratory-generative-ai_188544-9633.jpg",
+      "description": "Lead Researcher specializing in materials science"
+    },
+    "rivera": {
+      "name": "Lt. Marcus Rivera",
+      "image_url": "https://img.freepik.com/free-photo/young-male-astronaut-wearing-blue-suit-posing-with-white-helmet_23-2150320723.jpg",
+      "description": "Flight Engineer managing station propulsion and orientation"
+    },
+    "petrov": {
+      "name": "Dr. Sasha Petrov",
+      "image_url": "https://img.freepik.com/free-photo/pretty-doctor-coat-looking-camera_23-2147893831.jpg",
+      "description": "Medical Officer responsible for crew health and space medicine research"
+    }
+  },
+  "variables": {
+    "met_rivera": false,
+    "met_petrov": false,
+    "completed_tour": false
+  }
+}
