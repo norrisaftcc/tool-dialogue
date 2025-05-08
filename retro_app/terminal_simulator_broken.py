@@ -24,6 +24,7 @@ def apply_terminal_style():
         margin: 0;
         padding: 0;
         background-color: #111;
+        /* Remove the background image that's no longer available */
         color: #00FF00;
         font-family: 'Courier New', monospace;
         height: 100vh;
@@ -246,7 +247,7 @@ def apply_terminal_style():
     """, unsafe_allow_html=True)
 
 # Function to load dialogue data from JSON file
-def load_dialogue_data(file_path="dialogue_data.json"):
+def load_dialogue_data(file_path="conversations/dialogue_data.json"):
     # First try with the provided path
     try:
         with open(file_path, 'r') as file:
@@ -276,19 +277,150 @@ def load_dialogue_data(file_path="dialogue_data.json"):
         st.error(f"Error decoding JSON from '{file_path}'. Check the file format.")
         return {"dialogues": [], "quests": []}
 
-# Function to handle image display if present in dialogue
-def display_image(dialogue):
-    if "image_url" in dialogue and dialogue["image_url"]:
-        try:
-            # For local images in the project
-            if dialogue["image_url"].startswith("http"):
-                st.image(dialogue["image_url"], width=250)
-            else:
-                image_path = os.path.join(os.path.dirname(__file__), dialogue["image_url"])
-                image = Image.open(image_path)
-                st.image(image, width=250)
-        except Exception as e:
-            st.error(f"Unable to load image: {e}")
+# Function to import Twine data to the Terminal Dialogue Simulator JSON format
+def convert_twine_to_json(twine_content):
+    # This function will convert Twine content to our dialogue format
+    dialogues = []
+    quests = []
+    
+    # Parse passages from the Twine content
+    passages = parse_twine_passages(twine_content)
+    
+    # Process passages into dialogues
+    dialogue_id_map = {}
+    for passage in passages:
+        # Create a sanitized ID for the passage
+        passage_id = f"ai_terminal_{passage['title'].lower().replace(' ', '_').replace('(', '').replace(')', '')}"
+        dialogue_id_map[passage['title']] = passage_id
+    
+    # Set the starting dialogue
+    starting_dialogue = dialogue_id_map.get("Start", "ai_terminal_start")
+    
+    # Counter for response IDs
+    response_counter = 1
+    
+    # Process each passage into a dialogue
+    for passage in passages:
+        passage_id = dialogue_id_map[passage['title']]
+        
+        # Skip certain passages (like "restart" passages)
+        if passage['title'] == "placeholder" or (len(passage['links']) == 1 and 
+                                              passage['links'][0]['target'] == 'Start' and
+                                              ('Game Over' in passage['content'] or 'You lose' in passage['content'])):
+            continue
+        
+        # Determine the NPC
+        npc = "AI Terminal"
+        
+        # Create responses from links
+        responses = []
+        for link in passage['links']:
+            # Skip restart links
+            if link['target'] == 'Start' and ('Game Over' in passage['content'] or 'You lose' in passage['content']):
+                continue
+                
+            # Create a response ID
+            response_id = f"response_{response_counter}"
+            response_counter += 1
+            
+            # Format response text
+            response_text = link['text']
+            if not response_text.startswith('>'):
+                response_text = f"> {response_text}"
+            
+            # Determine next dialogue ID
+            next_dialogue = dialogue_id_map.get(link['target'], None)
+            
+            # Special script commands
+            script = None
+            if link['target'] == 'Win':
+                script = "StartQuest_terminal_key"
+            elif link['target'] == 'Riddle':
+                script = "UpdateQuest_terminal_key_1"
+            
+            responses.append({
+                "id": response_id,
+                "text": response_text,
+                "next_dialogue": next_dialogue,
+                "script": script
+            })
+        
+        # Create the dialogue
+        dialogue = {
+            "id": passage_id,
+            "npc": npc,
+            "text": passage['content'],
+            "responses": responses
+        }
+        
+        dialogues.append(dialogue)
+    
+    # Create a simple quest
+    quests.append({
+        "id": "terminal_key",
+        "title": "The Terminal Key",
+        "description": "Find the key hidden within the AI terminal.",
+        "stages": [
+            {
+                "id": 1,
+                "description": "Initial stage",
+                "journal_entry": "I need to find the key hidden within the AI terminal without releasing the AI."
+            },
+            {
+                "id": 2,
+                "description": "Riddle stage",
+                "journal_entry": "I need to solve the AI's riddle to find the key."
+            }
+        ]
+    })
+    
+    # Return the complete dialogue data
+    return {
+        "starting_dialogue": starting_dialogue,
+        "dialogues": dialogues,
+        "quests": quests
+    }
+
+def parse_twine_passages(twine_content):
+    passages = []
+    # Regular expression to find passage headers and content
+    passage_regex = r":: ([^\n]+)([^:]*?)(?=:: |$)"
+    matches = re.finditer(passage_regex, twine_content, re.DOTALL)
+    
+    for match in matches:
+        title = match.group(1).strip()
+        content = match.group(2).strip()
+        
+        # Extract links from the content
+        links = []
+        link_regex = r"\[\[([^\]]*?)(?:->([^\]]*?))?\]\]"
+        link_matches = re.finditer(link_regex, content, re.DOTALL)
+        
+        for link_match in link_matches:
+            link_text = link_match.group(1).strip()
+            link_target = link_match.group(2).strip() if link_match.group(2) else link_text
+            
+            links.append({
+                "text": link_text,
+                "target": link_target
+            })
+        
+        # Clean content by removing link markup
+        clean_content = re.sub(r"\[\[([^\]]*?)(?:->([^\]]*?))?\]\]", lambda m: m.group(1).strip(), content)
+        
+        # Handle special Twine syntax
+        clean_content = re.sub(r"\(textbox: \$[^\)]+\)", "", clean_content)
+        clean_content = re.sub(r"\(set: \$[^\)]+\)", "", clean_content)
+        clean_content = re.sub(r"\(if: [^\[]+\)\[[^\]]*\]", "", clean_content)
+        clean_content = re.sub(r"\(else:\)\[[^\]]*\]", "", clean_content)
+        
+        passages.append({
+            "title": title,
+            "content": clean_content,
+            "links": links
+        })
+    
+    return passages
 
 # Function to simulate typing effect
 def typewriter_text(text, speed=10):
@@ -315,13 +447,6 @@ def handle_script(script_name):
         if quest_id in st.session_state.quest_state:
             st.session_state.quest_state[quest_id]["current_stage"] = stage
             st.sidebar.info(f"Quest updated: {get_quest_title(quest_id)}")
-    
-    elif script_name.startswith("CompleteQuest_"):
-        quest_id = script_name.replace("CompleteQuest_", "")
-        if quest_id in st.session_state.quest_state:
-            # Mark as completed in some way
-            st.session_state.quest_state[quest_id]["completed"] = True
-            st.sidebar.success(f"Quest completed: {get_quest_title(quest_id)}")
 
 # Function to get quest title by ID
 def get_quest_title(quest_id):
@@ -353,26 +478,26 @@ def main():
     st.sidebar.markdown("<h2 style='color: #00FF00;'>SYSTEM CONTROLS</h2>", unsafe_allow_html=True)
     
     # Create a file selector for conversation files
-    conversation_path = os.path.join(os.path.dirname(__file__), "conversations")
-    if os.path.exists(conversation_path):
-        conversation_files = ["Select a conversation..."] + [f for f in os.listdir(conversation_path) if f.endswith(".json")]
-        
-        selected_conversation = st.sidebar.selectbox("Load conversation", conversation_files, key="conversation_selector")
-        if selected_conversation != "Select a conversation...":
-            try:
-                file_path = os.path.join(conversation_path, selected_conversation)
-                with open(file_path, 'r') as file:
-                    st.session_state.dialogue_data = json.load(file)
-                st.sidebar.success(f"Loaded: {selected_conversation}")
-                # Reset conversation when new data is loaded
-                st.session_state.current_dialogue_id = st.session_state.dialogue_data.get("starting_dialogue", "ai_terminal_start")
-                st.session_state.conversation_history = []
-                st.session_state.quest_state = {}
-                st.rerun()
-            except Exception as e:
-                st.sidebar.error(f"Error loading file: {str(e)}")
+    conversation_files = ["Select a conversation..."] + os.listdir(os.path.join(os.path.dirname(__file__), "conversations"))
+    # Filter to only show JSON files
+    conversation_files = [f for f in conversation_files if f.endswith(".json") or f == "Select a conversation..."]
     
-    # Standard file uploader as alternative
+    selected_conversation = st.sidebar.selectbox("Load conversation", conversation_files, key="conversation_selector")
+    if selected_conversation != "Select a conversation...":
+        try:
+            file_path = os.path.join(os.path.dirname(__file__), "conversations", selected_conversation)
+            with open(file_path, 'r') as file:
+                st.session_state.dialogue_data = json.load(file)
+            st.sidebar.success(f"Loaded: {selected_conversation}")
+            # Reset conversation when new data is loaded
+            st.session_state.current_dialogue_id = st.session_state.dialogue_data.get("starting_dialogue", "ai_terminal_start")
+            st.session_state.conversation_history = []
+            st.session_state.quest_state = {}
+            st.rerun()
+        except Exception as e:
+            st.sidebar.error(f"Error loading file: {str(e)}")
+            
+    # Keep the original file uploader as an alternative
     uploaded_file = st.sidebar.file_uploader("Or upload dialogue data (JSON)", type="json", key="json_uploader")
     if uploaded_file is not None:
         try:
@@ -385,6 +510,21 @@ def main():
             st.rerun()
         except json.JSONDecodeError:
             st.sidebar.error("Error decoding JSON. Check file format.")
+    
+    # Add Twine file uploader
+    uploaded_twine = st.sidebar.file_uploader("Upload Twine document", type="txt", key="twine_uploader")
+    if uploaded_twine is not None:
+        try:
+            twine_content = uploaded_twine.getvalue().decode("utf-8")
+            st.session_state.dialogue_data = convert_twine_to_json(twine_content)
+            st.sidebar.success("Twine document converted and loaded!")
+            # Reset conversation when new data is loaded
+            st.session_state.current_dialogue_id = st.session_state.dialogue_data.get("starting_dialogue")
+            st.session_state.conversation_history = []
+            st.session_state.quest_state = {}
+            st.rerun()
+        except Exception as e:
+            st.sidebar.error(f"Error processing Twine document: {str(e)}")
     
     # Option to reload the default dialogue
     if st.sidebar.button("Reload Default Dialogue"):
@@ -399,11 +539,6 @@ def main():
     # Terminal header
     st.markdown("<h1 style='color: #00FF00; text-align: center;'>TERMINAL ACCESS v2.47</h1>", unsafe_allow_html=True)
     
-    # Debug information - show what dialogue is loaded
-    st.write(f"Debug: Current dialogue ID: {st.session_state.current_dialogue_id}")
-    st.write(f"Debug: Dialogues available: {len(st.session_state.dialogue_data.get('dialogues', []))}")
-    st.write(f"Debug: First few dialogue IDs: {[d['id'] for d in st.session_state.dialogue_data.get('dialogues', [])[:3]]}")
-    
     # Find current dialogue
     current_dialogue = None
     for dialogue in st.session_state.dialogue_data["dialogues"]:
@@ -416,37 +551,21 @@ def main():
         # Display NPC text with typewriter effect if it's new
         is_new_dialogue = len(st.session_state.conversation_history) == 0 or st.session_state.conversation_history[-1]["id"] != current_dialogue["id"]
         
-        # Create two columns for image and text if image is present
-        if "image_url" in current_dialogue and current_dialogue["image_url"]:
-            col1, col2 = st.columns([1, 3])
-            with col1:
-                display_image(current_dialogue)
-            with col2:
-                st.markdown(f"<div class='dialog-header'>{current_dialogue['npc']}</div>", unsafe_allow_html=True)
-                if is_new_dialogue:
-                    typewriter_text(current_dialogue["text"])
-                else:
-                    st.markdown(f"<div class='dialog-text'>{current_dialogue['text']}</div>", unsafe_allow_html=True)
-        else:
-            st.markdown(f"<div class='dialog-header'>{current_dialogue['npc']}</div>", unsafe_allow_html=True)
-            if is_new_dialogue:
-                typewriter_text(current_dialogue["text"])
-            else:
-                st.markdown(f"<div class='dialog-text'>{current_dialogue['text']}</div>", unsafe_allow_html=True)
-        
-        # Add to history if it's new
         if is_new_dialogue:
+            st.markdown(f"<div class='dialog-header'>{current_dialogue['npc']}</div>", unsafe_allow_html=True)
+            typewriter_text(current_dialogue["text"])
+            
+            # Add to history
             st.session_state.conversation_history.append({
                 "id": current_dialogue["id"],
                 "speaker": current_dialogue["npc"],
                 "text": current_dialogue["text"],
-                "is_player": False,
-                "image_url": current_dialogue.get("image_url")
+                "is_player": False
             })
-            
-            # Handle any on_entry scripts
-            if "on_entry" in current_dialogue and current_dialogue["on_entry"]:
-                handle_script(current_dialogue["on_entry"])
+        else:
+            # Just show the text without animation
+            st.markdown(f"<div class='dialog-header'>{current_dialogue['npc']}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='dialog-text'>{current_dialogue['text']}</div>", unsafe_allow_html=True)
         
         # Show player responses
         for response in current_dialogue["responses"]:
@@ -499,19 +618,15 @@ def main():
                     break
             
             if quest:
-                if quest_state.get("completed", False):
-                    st.markdown(f"<h3 style='color: #FFFF00;'>{quest['title']} ✓</h3>", unsafe_allow_html=True)
-                    st.markdown(f"<div class='quest-log'>Completed!</div>", unsafe_allow_html=True)
-                else:
-                    st.markdown(f"<h3 style='color: #FFFF00;'>{quest['title']}</h3>", unsafe_allow_html=True)
-                    current_stage = None
-                    for stage in quest["stages"]:
-                        if stage["id"] == quest_state["current_stage"]:
-                            current_stage = stage
-                            break
-                    
-                    if current_stage:
-                        st.markdown(f"<div class='quest-log'>{current_stage['journal_entry']}</div>", unsafe_allow_html=True)
+                st.markdown(f"<h3 style='color: #FFFF00;'>{quest['title']}</h3>", unsafe_allow_html=True)
+                current_stage = None
+                for stage in quest["stages"]:
+                    if stage["id"] == quest_state["current_stage"]:
+                        current_stage = stage
+                        break
+                
+                if current_stage:
+                    st.markdown(f"<div class='quest-log'>{current_stage['journal_entry']}</div>", unsafe_allow_html=True)
         
         # Conversation history
         st.markdown("<h2 style='color: #00FF00;'>CONVERSATION LOG</h2>", unsafe_allow_html=True)
@@ -527,3 +642,5 @@ def main():
 # Run the application
 if __name__ == "__main__":
     main()
+
+
