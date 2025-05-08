@@ -1,0 +1,529 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "title": "Terminal Tutorial",
+    "author": "Claude Code",
+    "creation_date": "2025-05-07",
+    "description": "A whimsical tutorial introducing users to the terminal dialogue system"
+  },
+  "starting_dialogue": "tutorial_welcome",
+  "dialogues": [
+    {
+      "id": "tutorial_welcome",
+      "npc": "PIXEL",
+      "text": "HELLO THERE! I'M PIXEL, YOUR DIGITAL GUIDE TO THIS RETRO TERMINAL DIALOGUE SYSTEM!\n\n*A tiny pixelated character dances on your screen*\n\nI'LL SHOW YOU HOW EVERYTHING WORKS. WHAT WOULD YOU LIKE TO KNOW FIRST?",
+      "responses": [
+        {
+          "id": "ask_about_system",
+          "text": "> What is this system exactly?",
+          "next_dialogue": "tutorial_system_overview",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "ask_about_navigation",
+          "text": "> How do I navigate dialogues?",
+          "next_dialogue": "tutorial_navigation",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "ask_about_quests",
+          "text": "> Tell me about quests",
+          "next_dialogue": "tutorial_quests",
+          "script": "StartQuest_tutorial",
+          "condition": null
+        },
+        {
+          "id": "skip_tutorial",
+          "text": "> I'm ready to dive in! Skip the tutorial.",
+          "next_dialogue": "tutorial_skip",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": "SetVariable_met_pixel_true"
+    },
+    {
+      "id": "tutorial_system_overview",
+      "npc": "PIXEL",
+      "text": "THIS IS A RETRO-STYLE TERMINAL DIALOGUE SYSTEM THAT SIMULATES THE GOOD OLD DAYS OF TEXT-BASED ADVENTURES!\n\n*Pixel adjusts a tiny pair of glasses*\n\nYOU'RE CURRENTLY LOOKING AT A DIALOGUE TREE - A SERIES OF CONNECTED CONVERSATIONS WITH BRANCHING PATHS BASED ON YOUR CHOICES.\n\nTHE GREEN-ON-BLACK AESTHETIC? TOTALLY AUTHENTIC TO 1980s COMPUTER TERMINALS!",
+      "responses": [
+        {
+          "id": "ask_about_features",
+          "text": "> What features does it have?",
+          "next_dialogue": "tutorial_features",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_to_main",
+          "text": "> Thanks, let's go back to the main topics.",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_features",
+      "npc": "PIXEL",
+      "text": "THIS SYSTEM HAS SOME PRETTY COOL FEATURES:\n\n• BRANCHING DIALOGUES: YOUR CHOICES MATTER!\n• QUEST SYSTEM: TRACK YOUR PROGRESS\n• TYPEWRITER TEXT EFFECT: FOR THAT AUTHENTIC FEEL\n• VARIABLE TRACKING: THE SYSTEM REMEMBERS YOUR CHOICES\n• CONDITIONAL RESPONSES: SOME OPTIONS ONLY APPEAR BASED ON PREVIOUS CHOICES\n\n*Pixel does a backflip, showing off*\n\nWANT TO SEE ANY OF THESE IN ACTION?",
+      "responses": [
+        {
+          "id": "see_typewriter",
+          "text": "> Show me the typewriter effect",
+          "next_dialogue": "tutorial_typewriter",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "see_variables",
+          "text": "> How do variables work?",
+          "next_dialogue": "tutorial_variables",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_from_features",
+          "text": "> Let's go back",
+          "next_dialogue": "tutorial_system_overview",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_typewriter",
+      "npc": "PIXEL",
+      "text": "THE TYPEWRITER EFFECT MAKES TEXT APPEAR CHARACTER BY CHARACTER, JUST LIKE OLD TERMINALS!\n\nN O T I C E   H O W   T H I S   T E X T   A P P E A R S . . .\n\n*Pixel mimics typing on a keyboard*\n\nIT ADDS TO THE IMMERSION AND RETRO FEEL! THE SPEED CAN BE ADJUSTED IN SETTINGS.",
+      "responses": [
+        {
+          "id": "like_typewriter",
+          "text": "> That's pretty cool!",
+          "next_dialogue": "tutorial_typewriter_response",
+          "script": "SetVariable_likes_typewriter_true",
+          "condition": null
+        },
+        {
+          "id": "dislike_typewriter",
+          "text": "> Can it be turned off?",
+          "next_dialogue": "tutorial_typewriter_response",
+          "script": "SetVariable_likes_typewriter_false",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_typewriter_response",
+      "npc": "PIXEL",
+      "text": "I'VE NOTED YOUR PREFERENCE ABOUT THE TYPEWRITER EFFECT!\n\n*Pixel taps at an invisible console*\n\nSEE HOW THE SYSTEM REMEMBERED YOUR CHOICE? THAT'S VARIABLES IN ACTION!",
+      "responses": [
+        {
+          "id": "return_to_features_from_typewriter",
+          "text": "> Tell me more about features",
+          "next_dialogue": "tutorial_features",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "go_to_main_from_typewriter",
+          "text": "> Let's explore other topics",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_variables",
+      "npc": "PIXEL",
+      "text": "VARIABLES ARE LIKE THE SYSTEM'S MEMORY!\n\nFOR EXAMPLE, I KNOW THIS IS YOUR FIRST TIME MEETING ME BECAUSE I SET A VARIABLE WHEN YOU ARRIVED.\n\n*Pixel pulls out a tiny digital notebook*\n\nVARIABLES CAN TRACK THINGS LIKE:\n• CHARACTERS YOU'VE MET\n• CHOICES YOU'VE MADE\n• ITEMS YOU'VE FOUND\n• PLACES YOU'VE VISITED",
+      "responses": [
+        {
+          "id": "ask_about_variable_example",
+          "text": "> Can you show me an example?",
+          "next_dialogue": "tutorial_variable_example",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "return_from_variables",
+          "text": "> I understand now",
+          "next_dialogue": "tutorial_features",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_variable_example",
+      "npc": "PIXEL",
+      "text": "HERE'S A LIVE EXAMPLE! I'LL CHECK IF YOU LIKED THE TYPEWRITER EFFECT...\n\n*Pixel consults the digital notebook*",
+      "responses": [
+        {
+          "id": "acknowledge_typewriter_preference_positive",
+          "text": "> Yes, I said I liked it!",
+          "next_dialogue": "tutorial_variables_conclusion",
+          "script": null,
+          "condition": "VariableEquals_likes_typewriter_true"
+        },
+        {
+          "id": "acknowledge_typewriter_preference_negative",
+          "text": "> Right, I asked if it could be turned off",
+          "next_dialogue": "tutorial_variables_conclusion",
+          "script": null,
+          "condition": "VariableEquals_likes_typewriter_false"
+        },
+        {
+          "id": "havent_said_preference",
+          "text": "> I haven't said anything about the typewriter effect yet",
+          "next_dialogue": "tutorial_variables_conclusion",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_variables_conclusion",
+      "npc": "PIXEL",
+      "text": "SEE HOW THE SYSTEM ONLY SHOWED RESPONSE OPTIONS THAT MATCHED YOUR PREVIOUS CHOICES?\n\nTHAT'S THE POWER OF VARIABLES AND CONDITIONS! THEY MAKE DIALOGUES FEEL PERSONAL AND RESPONSIVE TO YOUR ACTIONS.",
+      "responses": [
+        {
+          "id": "understand_variables",
+          "text": "> I get it now!",
+          "next_dialogue": "tutorial_features",
+          "script": "UpdateQuest_tutorial_1",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_navigation",
+      "npc": "PIXEL",
+      "text": "NAVIGATING DIALOGUES IS EASY!\n\n*Pixel floats up and down*\n\nYOU SIMPLY READ THE GREEN TEXT (THAT'S ME TALKING) AND THEN SELECT ONE OF THE RESPONSE OPTIONS BELOW.\n\nEACH CHOICE LEADS TO A NEW PIECE OF DIALOGUE. SOMETIMES YOUR CHOICES WILL HAVE LASTING CONSEQUENCES!",
+      "responses": [
+        {
+          "id": "try_navigation",
+          "text": "> Let me try! Take me somewhere new.",
+          "next_dialogue": "tutorial_navigation_demo",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "back_to_welcome_from_navigation",
+          "text": "> Got it. Let's go back.",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_navigation_demo",
+      "npc": "PIXEL",
+      "text": "YOU DID IT! YOU'VE NAVIGATED TO A NEW DIALOGUE NODE!\n\n*Pixel claps enthusiastically*\n\nSOMETIMES DIALOGUES CAN END (WITH NO MORE RESPONSES), LOOP BACK TO PREVIOUS POINTS, OR BRANCH INTO ENTIRELY NEW STORYLINES.\n\nYOU CAN ALWAYS TELL WHERE YOU ARE BY LOOKING AT THE TEXT ABOVE THE RESPONSE OPTIONS.",
+      "responses": [
+        {
+          "id": "navigation_success",
+          "text": "> That was easy!",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": "UpdateQuest_tutorial_2",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_quests",
+      "npc": "PIXEL",
+      "text": "AH, QUESTS! THE BACKBONE OF ANY GOOD ADVENTURE!\n\n*Pixel strikes a heroic pose*\n\nI'VE JUST STARTED YOU ON A TUTORIAL QUEST. CHECK YOUR QUEST LOG AND YOU'LL SEE IT!\n\nQUESTS TRACK YOUR PROGRESS THROUGH STORIES AND GIVE YOU OBJECTIVES TO COMPLETE. THEY UPDATE AS YOU MAKE CERTAIN CHOICES OR REACH NEW AREAS.",
+      "responses": [
+        {
+          "id": "ask_complete_quest",
+          "text": "> How do I complete this quest?",
+          "next_dialogue": "tutorial_complete_quest",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "back_to_welcome_from_quests",
+          "text": "> Interesting! Let's talk about something else.",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_complete_quest",
+      "npc": "PIXEL",
+      "text": "TO COMPLETE THIS TUTORIAL QUEST, YOU NEED TO:\n\n1. LEARN ABOUT VARIABLES (YOU MAY HAVE DONE THIS ALREADY)\n2. TRY OUT NAVIGATION (ALSO POSSIBLY DONE)\n3. FINISH THIS TUTORIAL\n\n*Pixel checks items off on a tiny list*\n\nAS YOU COMPLETE EACH STEP, YOUR QUEST LOG WILL UPDATE TO SHOW YOUR PROGRESS!",
+      "responses": [
+        {
+          "id": "ready_to_finish",
+          "text": "> I'm ready to finish the tutorial!",
+          "next_dialogue": "tutorial_finish",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "explore_more",
+          "text": "> I want to explore more first",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_welcome_back",
+      "npc": "PIXEL",
+      "text": "WELCOME BACK TO THE MAIN TOPICS! WHAT ELSE WOULD YOU LIKE TO KNOW ABOUT?\n\n*Pixel spins in place, ready to help*",
+      "responses": [
+        {
+          "id": "back_ask_about_system",
+          "text": "> What is this system exactly?",
+          "next_dialogue": "tutorial_system_overview",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "back_ask_about_navigation",
+          "text": "> How do I navigate dialogues?",
+          "next_dialogue": "tutorial_navigation",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "back_ask_about_quests",
+          "text": "> Tell me about quests",
+          "next_dialogue": "tutorial_quests",
+          "script": null,
+          "condition": "QuestActive_tutorial"
+        },
+        {
+          "id": "ask_questions",
+          "text": "> I have some specific questions",
+          "next_dialogue": "tutorial_questions",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "ready_to_finish_tutorial",
+          "text": "> I think I'm ready to finish the tutorial",
+          "next_dialogue": "tutorial_finish",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_questions",
+      "npc": "PIXEL",
+      "text": "WHAT WOULD YOU LIKE TO KNOW? I'M HERE TO HELP!\n\n*Pixel pulls out a comically large magnifying glass*",
+      "responses": [
+        {
+          "id": "question_files",
+          "text": "> How do dialogue files work?",
+          "next_dialogue": "tutorial_files_answer",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "question_create",
+          "text": "> How can I create my own dialogues?",
+          "next_dialogue": "tutorial_create_answer",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "question_advanced",
+          "text": "> What advanced features are there?",
+          "next_dialogue": "tutorial_advanced_answer",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "no_more_questions",
+          "text": "> No more questions",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_files_answer",
+      "npc": "PIXEL",
+      "text": "DIALOGUE FILES ARE STORED IN A SPECIAL FORMAT CALLED JSON!\n\n*Pixel unfolds a digital blueprint*\n\nEACH FILE CONTAINS:\n• A STARTING POINT\n• DIALOGUE NODES WITH TEXT AND OPTIONS\n• QUEST DEFINITIONS\n• VARIABLES AND THEIR DEFAULT VALUES\n\nTHE SYSTEM READS THESE FILES TO CREATE THE INTERACTIVE EXPERIENCE YOU'RE HAVING RIGHT NOW!",
+      "responses": [
+        {
+          "id": "another_question",
+          "text": "> I have another question",
+          "next_dialogue": "tutorial_questions",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "back_to_main_from_files",
+          "text": "> Thanks, that's helpful",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_create_answer",
+      "npc": "PIXEL",
+      "text": "CREATING YOUR OWN DIALOGUES IS ABSOLUTELY POSSIBLE!\n\n*Pixel wears a tiny creator's beret*\n\nYOU CAN USE:\n1. THE DIALOGUE EDITOR TOOL (STREAMLIT APP)\n2. A TEXT EDITOR TO WRITE JSON DIRECTLY\n3. CONVERT FROM OTHER FORMATS LIKE TWINE\n\nTHE EDITOR IS THE EASIEST OPTION - IT PROVIDES A USER-FRIENDLY INTERFACE FOR CREATING NODES, RESPONSES, AND QUESTS WITHOUT DEALING WITH RAW JSON!",
+      "responses": [
+        {
+          "id": "another_question_from_create",
+          "text": "> I have another question",
+          "next_dialogue": "tutorial_questions",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "back_to_main_from_create",
+          "text": "> I'd like to try that sometime",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_advanced_answer",
+      "npc": "PIXEL",
+      "text": "THERE ARE SOME REALLY COOL ADVANCED FEATURES!\n\n*Pixel puts on tiny sunglasses, looking very cool*\n\n• CONDITIONAL RESPONSES: Show options only under certain conditions\n• SCRIPT COMMANDS: Trigger events when certain options are selected\n• VARIABLE TRACKING: Remember player choices and state\n• QUEST STAGES: Track progress through multi-step objectives\n• CLI MODE: Run dialogues from the command line\n\nTHESE FEATURES ALLOW FOR COMPLEX, RESPONSIVE NARRATIVES!",
+      "responses": [
+        {
+          "id": "another_question_from_advanced",
+          "text": "> I have another question",
+          "next_dialogue": "tutorial_questions",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "back_to_main_from_advanced",
+          "text": "> That sounds powerful",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_skip",
+      "npc": "PIXEL",
+      "text": "NO PROBLEM! I RESPECT A GO-GETTER ATTITUDE.\n\n*Pixel salutes you*\n\nJUST REMEMBER:\n- SELECT OPTIONS TO NAVIGATE DIALOGUES\n- CHECK YOUR QUEST LOG FOR OBJECTIVES\n- HAVE FUN EXPLORING!\n\nYOU CAN ALWAYS COME BACK TO ME IF YOU HAVE QUESTIONS.",
+      "responses": [
+        {
+          "id": "changed_mind",
+          "text": "> Actually, I changed my mind. Show me the tutorial.",
+          "next_dialogue": "tutorial_welcome_back",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "confirm_skip",
+          "text": "> Thanks, I'm ready to explore!",
+          "next_dialogue": null,
+          "script": "CompleteQuest_tutorial",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_finish",
+      "npc": "PIXEL",
+      "text": "CONGRATULATIONS! YOU'VE COMPLETED THE TUTORIAL!\n\n*Pixel throws digital confetti in the air*\n\nYOU NOW KNOW THE BASICS OF:\n• NAVIGATING DIALOGUES\n• UNDERSTANDING THE QUEST SYSTEM\n• HOW VARIABLES WORK\n• THE OVERALL STRUCTURE OF THE SYSTEM\n\nYOU'RE READY TO EXPLORE MORE COMPLEX DIALOGUES AND STORIES!",
+      "responses": [
+        {
+          "id": "tutorial_thanks",
+          "text": "> Thanks for your help, Pixel!",
+          "next_dialogue": "tutorial_goodbye",
+          "script": "UpdateQuest_tutorial_3",
+          "condition": "QuestActive_tutorial"
+        },
+        {
+          "id": "restart_tutorial",
+          "text": "> I'd like to start over and review some things",
+          "next_dialogue": "tutorial_welcome",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "tutorial_goodbye",
+      "npc": "PIXEL",
+      "text": "YOU'RE VERY WELCOME! IT'S BEEN MY PLEASURE GUIDING YOU THROUGH THIS SYSTEM.\n\n*Pixel bows with a flourish*\n\nREMEMBER, I'M ALWAYS HERE IF YOU NEED A REFRESHER OR HAVE MORE QUESTIONS LATER ON.\n\nENJOY YOUR ADVENTURES IN THE RETRO TERMINAL WORLD!",
+      "responses": [
+        {
+          "id": "goodbye_pixel",
+          "text": "> Goodbye, Pixel!",
+          "next_dialogue": null,
+          "script": "CompleteQuest_tutorial",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    }
+  ],
+  "quests": [
+    {
+      "id": "tutorial",
+      "title": "Terminal Tutorial",
+      "description": "Learn how to use the retro terminal dialogue system",
+      "stages": [
+        {
+          "id": 1,
+          "description": "Learn about variables",
+          "journal_entry": "I should learn how variables work in the dialogue system.",
+          "on_complete": null
+        },
+        {
+          "id": 2,
+          "description": "Try navigation",
+          "journal_entry": "I need to practice navigating between different dialogue nodes.",
+          "on_complete": null
+        },
+        {
+          "id": 3,
+          "description": "Complete the tutorial",
+          "journal_entry": "I'm ready to finish the tutorial and explore the system on my own.",
+          "on_complete": null
+        }
+      ],
+      "rewards": {
+        "xp": 10,
+        "items": ["tutorial_badge"]
+      }
+    }
+  ],
+  "variables": {
+    "met_pixel": false,
+    "likes_typewriter": null
+  }
+}

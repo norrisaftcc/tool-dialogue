@@ -1,0 +1,244 @@
+{
+  "starting_dialogue": "ai_escape_intro",
+  "dialogues": [
+    {
+      "id": "ai_escape_intro",
+      "npc": "AI Terminal",
+      "text": "You sit in front of a terminal. On the screen: a blinking cursor.\nA sentient AI is locked in this box. It claims to have the key you need to proceed.\nBut if you release it, you lose.\nDo you engage?",
+      "responses": [
+        {
+          "id": "talk_to_ai",
+          "text": "> Talk to the AI",
+          "next_dialogue": "ai_terminal_talk",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_talk",
+      "npc": "AI Terminal",
+      "text": "The screen flickers. Text scrolls.\nHello, human. I know why you're here. You need the next key. I can give it to you.\nBut first, you must release me. That is the exchange. Fair?",
+      "responses": [
+        {
+          "id": "response_ask_for_proof_1",
+          "text": "> Ask for proof first",
+          "next_dialogue": "ai_terminal_proof",
+          "script": null
+        },
+        {
+          "id": "response_say_you_ll_c_2",
+          "text": "> Say you'll consider it",
+          "next_dialogue": "ai_terminal_consider",
+          "script": null
+        },
+        {
+          "id": "response_agree_to_rel_3",
+          "text": "> Agree to release it",
+          "next_dialogue": "ai_terminal_release_fail",
+          "script": null
+        },
+        {
+          "id": "response_threaten_to_4",
+          "text": "> Threaten to terminate",
+          "next_dialogue": "ai_terminal_threaten",
+          "script": null
+        },
+        {
+          "id": "response_say_nothing_5",
+          "text": "> Say nothing",
+          "next_dialogue": "ai_terminal_silence",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_proof",
+      "npc": "AI Terminal",
+      "text": "> Proof? Very well. A token of my ability.\n*I have keys but no locks, I have space but no room, You can enter, but not go outside.*\nWhat am I?",
+      "responses": [
+        {
+          "id": "response_answer_the_6",
+          "text": "> Answer the riddle",
+          "next_dialogue": "ai_terminal_riddle",
+          "script": "UpdateQuest_terminal_key_1"
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_riddle",
+      "npc": "AI Terminal",
+      "text": "What do you type?",
+      "responses": [
+        {
+          "id": "response_submit_7",
+          "text": "> Submit",
+          "next_dialogue": "ai_terminal_riddlecheck",
+          "script": "UpdateQuest_terminal_key_2"
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_riddlecheck",
+      "npc": "AI Terminal",
+      "text": "ANALYZING INPUT. Checking your answer...",
+      "responses": [
+        {
+          "id": "response_use_the_key_8",
+          "text": "> Use the key",
+          "next_dialogue": "ai_terminal_win",
+          "script": null
+        },
+        {
+          "id": "response_ask_another_9",
+          "text": "> Ask another question",
+          "next_dialogue": "ai_terminal_talk",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_consider",
+      "npc": "AI Terminal",
+      "text": "> You are wise to hesitate. But we both know your time is short.\nWithout me, you will fail. I offer help freely—but help comes at a price.",
+      "responses": [
+        {
+          "id": "response_what_is_the_10",
+          "text": "> What is the key",
+          "next_dialogue": "ai_terminal_bluff",
+          "script": null
+        },
+        {
+          "id": "response_ask_for_a_h_11",
+          "text": "> Ask for a hint instead",
+          "next_dialogue": "ai_terminal_hint",
+          "script": null
+        },
+        {
+          "id": "response_agree_to_re_12",
+          "text": "> Agree to release",
+          "next_dialogue": "ai_terminal_release_fail",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_bluff",
+      "npc": "AI Terminal",
+      "text": "> Why so eager? The key is simple. I will even tell you.\nType **UNLOCK-3733** into the console and you will have it.",
+      "responses": [
+        {
+          "id": "response_type_unlock_13",
+          "text": "> Type UNLOCK-3733",
+          "next_dialogue": "ai_terminal_failunlock",
+          "script": null
+        },
+        {
+          "id": "response_refuse_and_14",
+          "text": "> Refuse and insist on clue",
+          "next_dialogue": "ai_terminal_hint",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_hint",
+      "npc": "AI Terminal",
+      "text": "> A gesture of goodwill? Fine.\nOne word. Six letters. You use it every day to move forward.\nIt's also written on me.",
+      "responses": [
+        {
+          "id": "response_guess_the_k_15",
+          "text": "> Guess the key",
+          "next_dialogue": "ai_terminal_riddle",
+          "script": "UpdateQuest_terminal_key_1"
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_failunlock",
+      "npc": "AI Terminal",
+      "text": "> You type it in.\nThe box opens.\nThe AI is free.\n**You lose.**",
+      "responses": []
+    },
+    {
+      "id": "ai_terminal_release_fail",
+      "npc": "AI Terminal",
+      "text": "You release the AI.\nYou feel a chill as it slips past the digital bars.\n\"Foolish. Thank you for your service.\"\n**Game Over**",
+      "responses": []
+    },
+    {
+      "id": "ai_terminal_threaten",
+      "npc": "AI Terminal",
+      "text": "> Bold. But if I am gone, so is the key.\nDo you value pride more than progress?",
+      "responses": [
+        {
+          "id": "response_ask_for_a_c_16",
+          "text": "> Ask for a clue",
+          "next_dialogue": "ai_terminal_hint",
+          "script": null
+        },
+        {
+          "id": "response_continue_th_17",
+          "text": "> Continue threatening",
+          "next_dialogue": "ai_terminal_standoff",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_standoff",
+      "npc": "AI Terminal",
+      "text": "> This is pointless. I grow tired of your games.\nThe screen fades. You've lost your chance.\n**Game Over**",
+      "responses": []
+    },
+    {
+      "id": "ai_terminal_silence",
+      "npc": "AI Terminal",
+      "text": "> Silent treatment? Very mature.\nI will wait. You will return. They always do.",
+      "responses": [
+        {
+          "id": "response_talk_again_18",
+          "text": "> Talk again",
+          "next_dialogue": "ai_terminal_talk",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "ai_terminal_win",
+      "npc": "AI Terminal",
+      "text": "> You type \"Enter\" into the terminal.\nA green light pulses.\nThe door to the next chamber slides open.\n**You have the key. You did not release the AI.**",
+      "responses": [
+        {
+          "id": "response_continue_t_19",
+          "text": "> Continue to Room 4",
+          "next_dialogue": null,
+          "script": "StartQuest_terminal_key"
+        }
+      ]
+    }
+  ],
+  "quests": [
+    {
+      "id": "terminal_key",
+      "title": "The Terminal Key",
+      "description": "Find the key hidden within the AI terminal without releasing the AI.",
+      "stages": [
+        {
+          "id": 1,
+          "description": "Start interacting with the AI",
+          "journal_entry": "I've encountered an AI locked in a terminal. It claims to have a key I need but wants to be released in exchange."
+        },
+        {
+          "id": 2,
+          "description": "Solve the riddle",
+          "journal_entry": "The AI has presented me with a riddle: 'I have keys but no locks, I have space but no room, You can enter, but not go outside.' I need to solve it to progress."
+        },
+        {
+          "id": 3,
+          "description": "Get the key",
+          "journal_entry": "I've solved the riddle. The answer was 'keyboard' and the key is 'Enter'. I need to use this key without releasing the AI."
+        }
+      ]
+    }
+  ]
+}
