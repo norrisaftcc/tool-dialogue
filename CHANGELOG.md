@@ -5,9 +5,26 @@ All notable changes to the Retro Terminal Dialogue System project will be docume
 ## [Unreleased]
 - Variable system implementation
 - Visual dialogue tree editor
-- Media integration (images, sounds)
-- Advanced dialogue testing tools
 - Enhanced import/export capabilities
+
+## [0.4.0] - 2025-05-08
+### Added
+- Comprehensive dialogue validator with reference checking and naming validation
+- Organized file structure with conversations/ and templates/ directories
+- Template system for creating new dialogue files
+- Dialogue testing framework with sample files
+- Image support for character portraits
+- Dropdown menu in simulator for selecting dialogue files
+
+### Changed
+- Updated terminal simulator to work with new directory structure
+- Improved file loading and error handling
+- Enhanced documentation with validation and organization guides
+
+### Fixed
+- Removed broken image URL from terminal simulator
+- Fixed duplicate element IDs in Streamlit interface
+- Fixed validation for quest stage references
 
 ## [0.3.0] - 2025-05-07
 ### Added
