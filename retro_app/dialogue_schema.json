@@ -56,6 +56,11 @@
             "type": "string",
             "description": "Name of the character or system speaking"
           },
+          "image_url": {
+            "type": ["string", "null"],
+            "description": "URL to an image of the speaking character/entity",
+            "format": "uri"
+          },
           "text": {
             "type": "string",
             "description": "The content of the dialogue displayed to the player"
@@ -162,6 +167,29 @@
             }
           }
         }
+      }
+    },
+    "characters": {
+      "type": "object",
+      "description": "Dictionary of character information including images",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full name of the character"
+          },
+          "image_url": {
+            "type": "string",
+            "description": "URL to an image of the character",
+            "format": "uri"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the character"
+          }
+        },
+        "required": ["name", "image_url"]
       }
     },
     "variables": {
