@@ -1,83 +1,110 @@
-# tool-dialogue
+# Retro Terminal Dialogue System
 
-intended as a basic twine alternative that didn't require any external tools. Just load the json and play. Editor as a separate program.
+A nostalgic green-on-black terminal dialogue simulator with branching conversations and a companion dialogue editor.
 
-the 80s terminal aesthetic is to evoke a time when carefully staring at a menu before clicking was high gameplay.
+## Overview
 
-# Running the tool (part 1 -- venv stuff)
+This project provides a retro-style terminal dialogue system that mimics the look and feel of 1980s computer terminals. The system includes:
 
-I see you're now in your project directory and tried to create a virtual environment but got the usage instructions instead. Let's pick up from here and set up both Streamlit and Node.js properly.
+- **Terminal Dialogue Simulator**: An interactive interface for playing through dialogue trees
+- **Dialogue Editor**: A tool for creating and modifying dialogue files
+- **Standardized JSON Format**: A robust structure for dialogue data
+- **CLI Parser**: A command-line interface for dialogue interaction
 
-## Setting up a Streamlit Environment
+The 80s terminal aesthetic evokes a time when carefully staring at a menu before clicking was high gameplay.
 
-First, let's create a virtual environment for your Streamlit projects:
+## Getting Started
 
-```
-python -m venv streamlit_env
-```
+### Setup and Installation
 
-This will create a directory called `streamlit_env` in your current location with a self-contained Python environment.
+1. **Create and activate a virtual environment**:
+   ```bash
+   python -m venv streamlit_env
+   source streamlit_env/bin/activate  # On Windows: streamlit_env\Scripts\activate
+   ```
 
-To activate this environment:
+2. **Install required packages**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```
-source streamlit_env/bin/activate
-```
+### Running the Applications
 
-You should see `(streamlit_env)` at the beginning of your command prompt, indicating that the environment is active.
+1. **Running the Terminal Simulator**:
+   ```bash
+   streamlit run retro_app/terminal_simulator.py
+   ```
 
-Now, let's install Streamlit:
+2. **Running the Dialogue Editor**:
+   ```bash
+   streamlit run retro_app/dialogue_editor.py
+   ```
 
-```
-pip install streamlit
-```
+3. **Using the CLI Parser** (for command-line interaction):
+   ```bash
+   python retro_app/cli_parser.py retro_app/dialogue_tutorial.json
+   ```
 
-To test your Streamlit installation:
+## Using the Tutorial
 
-```
-streamlit hello
-```
+The project includes a tutorial dialogue file that introduces the system's features:
 
-This should open a demo app in your browser.
+1. **To load the tutorial in the simulator**:
+   - Start the terminal simulator
+   - Click "Upload Dialogue File" in the sidebar
+   - Select `retro_app/dialogue_tutorial.json`
+   - Click "Start" to begin the tutorial
 
-## Setting up Node.js
+2. **To run the tutorial in CLI mode**:
+   ```bash
+   python retro_app/cli_parser.py retro_app/dialogue_tutorial.json
+   ```
 
-Let's install Node.js with Homebrew:
+The tutorial features a character named Pixel who guides you through:
+- Basic navigation of dialogues
+- The quest system
+- Variables and conditions
+- How to create your own dialogues
 
-```
-brew install node
-```
+## Creating Your Own Dialogues
 
-Verify your Node.js installation:
+You can create your own dialogue scenarios in two ways:
 
-```
-node --version
-npm --version
-```
+1. **Using the Dialogue Editor**:
+   - Run the dialogue editor application
+   - Create dialogue nodes, responses, and quests through the interface
+   - Save your creation as a JSON file
 
-Now you have both Streamlit and Node.js properly installed, with Streamlit in a dedicated virtual environment that won't conflict with other Python projects.
+2. **Editing JSON Directly**:
+   - Follow the format in `retro_app/README_standardized_format.md`
+   - Use `retro_app/dialogue_example_standardized.json` as a template
+   - Validate your file with the schema validator:
+     ```bash
+     python retro_app/schema_validator.py your_dialogue.json
+     ```
 
-## venv tldr
-Setting up a Streamlit Environment
-First, let's create a virtual environment for your Streamlit projects:
-python -m venv streamlit_env
-This will create a directory called streamlit_env in your current location with a self-contained Python environment.
-To activate this environment:
-source streamlit_env/bin/activate
-You should see (streamlit_env) at the beginning of your command prompt, indicating that the environment is active.
-Now, let's install Streamlit:
-pip install streamlit
-To test your Streamlit installation:
-streamlit hello
-This should open a demo app in your browser.
-Setting up Node.js
-Let's install Node.js with Homebrew:
-brew install node
-Verify your Node.js installation:
-node --version
-npm --version
-Now you have both Streamlit and Node.js properly installed, with Streamlit in a dedicated virtual environment that won't conflict with other Python projects.
+## File Structure
 
-----
+- `retro_app/terminal_simulator.py` - Main application for the dialogue simulator
+- `retro_app/dialogue_editor.py` - Editor for creating dialogue JSON files
+- `retro_app/cli_parser.py` - Command-line interface for dialogue interaction
+- `retro_app/schema_validator.py` - Tool for validating dialogue files
+- `retro_app/dialogue_schema.json` - JSON schema definition
+- `retro_app/*.json` - Various dialogue data files in JSON format
+- `retro_app/README_*.md` - Documentation for different components
 
+## Documentation
 
+- `retro_app/README_dialogue_format.md` - Original dialogue format documentation
+- `retro_app/README_standardized_format.md` - Standardized dialogue format specification
+- `retro_app/README_dialogue_editor.md` - Guide to using the dialogue editor
+- `retro_app/README_terminal_sim.md` - Guide to using the terminal simulator
+
+## Example Dialogue Files
+
+- `retro_app/dialogue_tutorial.json` - Interactive tutorial introducing the system
+- `retro_app/dialogue_default.json` - Simple example with basic structure
+- `retro_app/dialogue_example_standardized.json` - Example using the standardized format
+- `retro_app/dialogue_data.json` - More complex dialogue scenario (AI escape)
+- `retro_app/dialogue_datav2.json`, `retro_app/dialogue_datav3.json` - Alternative scenarios
+- `retro_app/dialogue_about.json` - Meta-dialogue about the system itself
