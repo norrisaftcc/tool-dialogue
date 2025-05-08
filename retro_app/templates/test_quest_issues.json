@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "title": "Quest Issues Test",
+    "author": "Test Author",
+    "creation_date": "2025-05-08",
+    "description": "A test dialogue with quest issues"
+  },
+  "starting_dialogue": "quest_start",
+  "dialogues": [
+    {
+      "id": "quest_start",
+      "npc": "Quest Giver",
+      "text": "Would you like to take on a quest?",
+      "responses": [
+        {
+          "id": "accept_quest",
+          "text": "> Yes, give me a quest",
+          "next_dialogue": "quest_details",
+          "script": "StartQuest_test_quest",
+          "condition": null
+        },
+        {
+          "id": "refuse_quest",
+          "text": "> No thanks",
+          "next_dialogue": null,
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "quest_details",
+      "npc": "Quest Giver",
+      "text": "Great! Your quest is to test the quest progression.",
+      "responses": [
+        {
+          "id": "skip_to_stage_3",
+          "text": "> Skip to stage 3 (non-sequential)",
+          "next_dialogue": "quest_skip",
+          "script": "UpdateQuest_test_quest_3",
+          "condition": null
+        },
+        {
+          "id": "normal_progression",
+          "text": "> Progress normally",
+          "next_dialogue": "quest_progress",
+          "script": "UpdateQuest_test_quest_1",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "quest_progress",
+      "npc": "Quest Giver",
+      "text": "You're making progress on the quest.",
+      "responses": [
+        {
+          "id": "complete_quest",
+          "text": "> Complete the quest",
+          "next_dialogue": "quest_end",
+          "script": "CompleteQuest_test_quest",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "quest_skip",
+      "npc": "Quest Giver",
+      "text": "You skipped to stage 3.",
+      "responses": [
+        {
+          "id": "quest_end",
+          "text": "> End the quest",
+          "next_dialogue": null,
+          "script": "CompleteQuest_test_quest",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "quest_end",
+      "npc": "Quest Giver",
+      "text": "Quest completed!",
+      "responses": [
+        {
+          "id": "end_dialogue",
+          "text": "> Goodbye",
+          "next_dialogue": null,
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    }
+  ],
+  "quests": [
+    {
+      "id": "test_quest",
+      "title": "Test Quest",
+      "description": "A quest with non-sequential stages",
+      "stages": [
+        {
+          "id": 1,
+          "description": "First stage",
+          "journal_entry": "First stage journal entry",
+          "on_complete": null
+        },
+        {
+          "id": 3,
+          "description": "Third stage (missing stage 2)",
+          "journal_entry": "Third stage journal entry",
+          "on_complete": null
+        },
+        {
+          "id": 5,
+          "description": "Fifth stage (missing stage 4)",
+          "journal_entry": "Fifth stage journal entry",
+          "on_complete": null
+        }
+      ],
+      "rewards": {
+        "xp": 100,
+        "items": ["test_item"]
+      }
+    }
+  ],
+  "variables": {}
+}

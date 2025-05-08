@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "title": "Naming Convention Test",
+    "author": "Test Author",
+    "creation_date": "2025-05-08",
+    "description": "A test dialogue with naming convention issues"
+  },
+  "starting_dialogue": "start",
+  "dialogues": [
+    {
+      "id": "start",
+      "npc": "NPC",
+      "text": "This dialogue has an ID that's too generic.",
+      "responses": [
+        {
+          "id": "a",
+          "text": "> This response has a too-short ID",
+          "next_dialogue": "dialogue1",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "TooMuchCamelCase",
+          "text": "> This response uses camelCase instead of snake_case",
+          "next_dialogue": "dialogue2",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "dialogue1",
+      "npc": "NPC Two",
+      "text": "This dialogue ID uses a number suffix.",
+      "responses": [
+        {
+          "id": "back_to_start",
+          "text": "> Back to start (good ID)",
+          "next_dialogue": "start",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "dialogue2",
+      "npc": "NPC Three",
+      "text": "Another dialogue with a numeric ID.",
+      "responses": [
+        {
+          "id": "back_to_start",
+          "text": "> Back to start",
+          "next_dialogue": "start",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    }
+  ],
+  "quests": [
+    {
+      "id": "q1",
+      "title": "Quest One",
+      "description": "This quest has a short, non-descriptive ID",
+      "stages": [
+        {
+          "id": 1,
+          "description": "Stage one",
+          "journal_entry": "Stage one journal entry",
+          "on_complete": null
+        }
+      ],
+      "rewards": {
+        "xp": 50,
+        "items": []
+      }
+    }
+  ],
+  "variables": {}
+}

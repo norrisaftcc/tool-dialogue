@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "title": "Circular Reference Test",
+    "author": "Test Author",
+    "creation_date": "2025-05-08",
+    "description": "A test dialogue with circular references"
+  },
+  "starting_dialogue": "dialogue_a",
+  "dialogues": [
+    {
+      "id": "dialogue_a",
+      "npc": "NPC A",
+      "text": "This is dialogue A.",
+      "responses": [
+        {
+          "id": "go_to_b",
+          "text": "> Go to dialogue B",
+          "next_dialogue": "dialogue_b",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "dialogue_b",
+      "npc": "NPC B",
+      "text": "This is dialogue B.",
+      "responses": [
+        {
+          "id": "go_to_c",
+          "text": "> Go to dialogue C",
+          "next_dialogue": "dialogue_c",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "dialogue_c",
+      "npc": "NPC C",
+      "text": "This is dialogue C.",
+      "responses": [
+        {
+          "id": "go_to_a",
+          "text": "> Go back to dialogue A",
+          "next_dialogue": "dialogue_a",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    }
+  ],
+  "quests": [],
+  "variables": {}
+}

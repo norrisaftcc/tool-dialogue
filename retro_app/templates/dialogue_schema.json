@@ -1,0 +1,207 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "title": "Dialogue Schema",
+    "author": "Claude Code",
+    "creation_date": "2025-05-07",
+    "description": "Standardized schema for retro terminal dialogue trees"
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["starting_dialogue", "dialogues", "quests"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "description": "Version of the dialogue schema"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Information about the dialogue file itself",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title of the dialogue scenario"
+        },
+        "author": {
+          "type": "string",
+          "description": "Author of the dialogue content"
+        },
+        "creation_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the dialogue was created (YYYY-MM-DD)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of the dialogue scenario"
+        }
+      }
+    },
+    "starting_dialogue": {
+      "type": "string",
+      "description": "ID of the first dialogue to display when the simulator starts"
+    },
+    "dialogues": {
+      "type": "array",
+      "description": "Array of dialogue objects representing conversation nodes",
+      "items": {
+        "type": "object",
+        "required": ["id", "npc", "text", "responses"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the dialogue node"
+          },
+          "npc": {
+            "type": "string",
+            "description": "Name of the character or system speaking"
+          },
+          "image_url": {
+            "type": ["string", "null"],
+            "description": "URL to an image of the speaking character/entity",
+            "format": "uri"
+          },
+          "text": {
+            "type": "string",
+            "description": "The content of the dialogue displayed to the player"
+          },
+          "responses": {
+            "type": "array",
+            "description": "Array of possible player responses to this dialogue",
+            "items": {
+              "type": "object",
+              "required": ["id", "text", "next_dialogue"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier for this response"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Text of the response shown to the player"
+                },
+                "next_dialogue": {
+                  "type": ["string", "null"],
+                  "description": "ID of the next dialogue or null to end conversation"
+                },
+                "script": {
+                  "type": ["string", "null"],
+                  "description": "Optional script command to execute when this response is selected"
+                },
+                "condition": {
+                  "type": ["string", "null"],
+                  "description": "Optional condition that determines if this response is available"
+                }
+              }
+            }
+          },
+          "on_entry": {
+            "type": ["string", "null"],
+            "description": "Optional script to run when entering this dialogue node"
+          }
+        }
+      }
+    },
+    "quests": {
+      "type": "array",
+      "description": "Array of quest objects representing storylines or objectives",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "description", "stages"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the quest"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the quest as displayed in the quest log"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the quest's objective"
+          },
+          "stages": {
+            "type": "array",
+            "description": "Array of stages representing quest progression",
+            "items": {
+              "type": "object",
+              "required": ["id", "description", "journal_entry"],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "description": "Numeric identifier for the stage, starting at 1"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Short description for development reference (not shown to player)"
+                },
+                "journal_entry": {
+                  "type": "string",
+                  "description": "Text displayed in player's quest log for this stage"
+                },
+                "on_complete": {
+                  "type": ["string", "null"],
+                  "description": "Optional script to run when this stage is completed"
+                }
+              }
+            }
+          },
+          "rewards": {
+            "type": "object",
+            "description": "Optional rewards for completing the quest",
+            "properties": {
+              "xp": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Experience points awarded"
+              },
+              "items": {
+                "type": "array",
+                "description": "Array of items awarded",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "characters": {
+      "type": "object",
+      "description": "Dictionary of character information including images",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full name of the character"
+          },
+          "image_url": {
+            "type": "string",
+            "description": "URL to an image of the character",
+            "format": "uri"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the character"
+          }
+        },
+        "required": ["name", "image_url"]
+      }
+    },
+    "variables": {
+      "type": "object",
+      "description": "Global variables for tracking state across dialogues",
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string" },
+          { "type": "number" },
+          { "type": "boolean" }
+        ]
+      }
+    }
+  }
+}

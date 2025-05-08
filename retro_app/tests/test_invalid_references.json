@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "title": "Invalid References Test",
+    "author": "Test Author",
+    "creation_date": "2025-05-08",
+    "description": "A test dialogue with invalid references"
+  },
+  "starting_dialogue": "test_intro",
+  "dialogues": [
+    {
+      "id": "test_intro",
+      "npc": "Test NPC",
+      "text": "This dialogue has broken references.",
+      "responses": [
+        {
+          "id": "response_one",
+          "text": "> This is response one",
+          "next_dialogue": "nonexistent_dialogue",
+          "script": null,
+          "condition": null
+        },
+        {
+          "id": "response_two",
+          "text": "> This is response two",
+          "next_dialogue": "test_response_two",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "test_response_two",
+      "npc": "Test NPC",
+      "text": "You chose response two.",
+      "responses": [
+        {
+          "id": "start_quest",
+          "text": "> Start a quest",
+          "next_dialogue": "quest_intro",
+          "script": "StartQuest_nonexistent_quest",
+          "condition": null
+        },
+        {
+          "id": "back_to_start",
+          "text": "> Go back to start",
+          "next_dialogue": "test_intro",
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "quest_intro",
+      "npc": "Quest Giver",
+      "text": "This is the beginning of a test quest.",
+      "responses": [
+        {
+          "id": "accept_quest",
+          "text": "> Accept the quest",
+          "next_dialogue": "quest_accepted",
+          "script": "UpdateQuest_test_quest_5",
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "quest_accepted",
+      "npc": "Quest Giver",
+      "text": "You've accepted the quest. Now go complete it.",
+      "responses": [
+        {
+          "id": "complete_quest",
+          "text": "> Complete the quest",
+          "next_dialogue": null,
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    },
+    {
+      "id": "unreachable_dialogue",
+      "npc": "Unreachable NPC",
+      "text": "This dialogue can't be reached from the starting dialogue.",
+      "responses": [
+        {
+          "id": "exit_unreachable",
+          "text": "> Exit",
+          "next_dialogue": null,
+          "script": null,
+          "condition": null
+        }
+      ],
+      "on_entry": null
+    }
+  ],
+  "quests": [
+    {
+      "id": "test_quest",
+      "title": "Test Quest",
+      "description": "A test quest for validation",
+      "stages": [
+        {
+          "id": 1,
+          "description": "Starting the quest",
+          "journal_entry": "I've started the test quest.",
+          "on_complete": null
+        },
+        {
+          "id": 2,
+          "description": "Completing the quest",
+          "journal_entry": "I'm finishing the test quest.",
+          "on_complete": null
+        }
+      ],
+      "rewards": {
+        "xp": 100,
+        "items": ["test_item"]
+      }
+    },
+    {
+      "id": "unused_quest",
+      "title": "Unused Quest",
+      "description": "This quest is defined but never used in any dialogue",
+      "stages": [
+        {
+          "id": 1,
+          "description": "Stage one",
+          "journal_entry": "Stage one journal entry",
+          "on_complete": null
+        }
+      ],
+      "rewards": {
+        "xp": 50,
+        "items": []
+      }
+    }
+  ],
+  "variables": {
+    "test_started": false
+  }
+}
