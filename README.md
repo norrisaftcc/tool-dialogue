@@ -10,6 +10,7 @@ This project provides a retro-style terminal dialogue system that mimics the loo
 - **Dialogue Editor**: A tool for creating and modifying dialogue files
 - **Standardized JSON Format**: A robust structure for dialogue data
 - **CLI Parser**: A command-line interface for dialogue interaction
+- **Character Image Support**: Display portraits of speaking characters
 
 The 80s terminal aesthetic evokes a time when carefully staring at a menu before clicking was high gameplay.
 
@@ -35,12 +36,17 @@ The 80s terminal aesthetic evokes a time when carefully staring at a menu before
    streamlit run retro_app/terminal_simulator.py
    ```
 
-2. **Running the Dialogue Editor**:
+2. **Running the Image-Enabled Terminal Simulator**:
+   ```bash
+   streamlit run retro_app/terminal_image_display.py
+   ```
+
+3. **Running the Dialogue Editor**:
    ```bash
    streamlit run retro_app/dialogue_editor.py
    ```
 
-3. **Using the CLI Parser** (for command-line interaction):
+4. **Using the CLI Parser** (for command-line interaction):
    ```bash
    python retro_app/cli_parser.py retro_app/dialogue_tutorial.json
    ```
@@ -66,6 +72,22 @@ The tutorial features a character named Pixel who guides you through:
 - Variables and conditions
 - How to create your own dialogues
 
+## Dialogue with Character Images
+
+For a more visual experience, try the space station dialogue with character portraits:
+
+1. **Run the image-enabled simulator**:
+   ```bash
+   streamlit run retro_app/terminal_image_display.py
+   ```
+
+2. **Load the space station dialogue**:
+   - Click "Upload Dialogue File" in the sidebar
+   - Select `retro_app/dialogue_with_images.json`
+   - Click "Load Dialogue" to meet the space station crew
+
+See `retro_app/README_images.md` for details on adding images to your own dialogues.
+
 ## Creating Your Own Dialogues
 
 You can create your own dialogue scenarios in two ways:
@@ -85,7 +107,8 @@ You can create your own dialogue scenarios in two ways:
 
 ## File Structure
 
-- `retro_app/terminal_simulator.py` - Main application for the dialogue simulator
+- `retro_app/terminal_simulator.py` - Standard terminal simulator
+- `retro_app/terminal_image_display.py` - Terminal simulator with image support
 - `retro_app/dialogue_editor.py` - Editor for creating dialogue JSON files
 - `retro_app/cli_parser.py` - Command-line interface for dialogue interaction
 - `retro_app/schema_validator.py` - Tool for validating dialogue files
@@ -99,12 +122,17 @@ You can create your own dialogue scenarios in two ways:
 - `retro_app/README_standardized_format.md` - Standardized dialogue format specification
 - `retro_app/README_dialogue_editor.md` - Guide to using the dialogue editor
 - `retro_app/README_terminal_sim.md` - Guide to using the terminal simulator
+- `retro_app/README_images.md` - Guide to using character images in dialogues
 
 ## Example Dialogue Files
 
 - `retro_app/dialogue_tutorial.json` - Interactive tutorial introducing the system
+- `retro_app/dialogue_with_images.json` - Space station dialogue with character portraits
 - `retro_app/dialogue_default.json` - Simple example with basic structure
 - `retro_app/dialogue_example_standardized.json` - Example using the standardized format
 - `retro_app/dialogue_data.json` - More complex dialogue scenario (AI escape)
-- `retro_app/dialogue_datav2.json`, `retro_app/dialogue_datav3.json` - Alternative scenarios
 - `retro_app/dialogue_about.json` - Meta-dialogue about the system itself
+
+## Development
+
+This project was developed with assistance from Claude Code. The human user found Claude's assistance to be "groovy" and particularly helpful for implementing new features like character image support and standardized dialogue formats.
