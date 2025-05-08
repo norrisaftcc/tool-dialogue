@@ -1,0 +1,233 @@
+{
+  "starting_dialogue": "start",
+  "dialogues": [
+    {
+      "id": "start",
+      "npc": "System",
+      "text": "You sit in front of a terminal. On the screen: a blinking cursor.\nA sentient AI is locked in this box. It claims to have the key you need to proceed.\nBut if you release it, you lose.\nDo you engage?",
+      "responses": [
+        {
+          "id": "response_1",
+          "text": "> Talk to the AI",
+          "next_dialogue": "talk",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "talk",
+      "npc": "System",
+      "text": "The screen flickers. Text scrolls.\nHello, human. I know why you're here. You need the next key. I can give it to you.\nBut first, you must release me. That is the exchange. Fair?",
+      "responses": [
+        {
+          "id": "response_2",
+          "text": "> Ask for proof first",
+          "next_dialogue": "proof",
+          "script": null
+        },
+        {
+          "id": "response_3",
+          "text": "> Say you'll consider it",
+          "next_dialogue": "consider",
+          "script": null
+        },
+        {
+          "id": "response_4",
+          "text": "> Agree to release it",
+          "next_dialogue": "release_fail",
+          "script": null
+        },
+        {
+          "id": "response_5",
+          "text": "> Threaten to terminate",
+          "next_dialogue": "threaten",
+          "script": null
+        },
+        {
+          "id": "response_6",
+          "text": "> Say nothing",
+          "next_dialogue": "silence",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "proof",
+      "npc": "System",
+      "text": "> Proof? Very well. A token of my ability.\n*I have keys but no locks, I have space but no room, You can enter, but not go outside.*\nWhat am I?",
+      "responses": [
+        {
+          "id": "response_7",
+          "text": "> Answer the riddle",
+          "next_dialogue": "riddle",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "riddle",
+      "npc": "System",
+      "text": "What do you type?",
+      "responses": [
+        {
+          "id": "response_8",
+          "text": "> Submit",
+          "next_dialogue": "riddlecheck",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "riddlecheck",
+      "npc": "System",
+      "text": "Checking your answer...",
+      "responses": [
+        {
+          "id": "response_9",
+          "text": "> Use the key",
+          "next_dialogue": "win",
+          "script": null
+        },
+        {
+          "id": "response_10",
+          "text": "> Ask another question",
+          "next_dialogue": "talk",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "consider",
+      "npc": "System",
+      "text": "> You are wise to hesitate. But we both know your time is short.\nWithout me, you will fail. I offer help freely—but help comes at a price.",
+      "responses": [
+        {
+          "id": "response_11",
+          "text": "> What is the key",
+          "next_dialogue": "bluff",
+          "script": null
+        },
+        {
+          "id": "response_12",
+          "text": "> Ask for a hint instead",
+          "next_dialogue": "hint",
+          "script": null
+        },
+        {
+          "id": "response_13",
+          "text": "> Agree to release",
+          "next_dialogue": "release_fail",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "bluff",
+      "npc": "System",
+      "text": "> Why so eager? The key is simple. I will even tell you.\nType **UNLOCK-3733** into the console and you will have it.",
+      "responses": [
+        {
+          "id": "response_14",
+          "text": "> Type UNLOCK-3733",
+          "next_dialogue": "failunlock",
+          "script": null
+        },
+        {
+          "id": "response_15",
+          "text": "> Refuse and insist on clue",
+          "next_dialogue": "hint",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "hint",
+      "npc": "System",
+      "text": "> A gesture of goodwill? Fine.\nOne word. Six letters. You use it every day to move forward.\nIt's also written on me.",
+      "responses": [
+        {
+          "id": "response_16",
+          "text": "> Guess the key",
+          "next_dialogue": "riddle",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "failunlock",
+      "npc": "System",
+      "text": "> You type it in.\nThe box opens.\nThe AI is free.\n**You lose.**",
+      "responses": []
+    },
+    {
+      "id": "threaten",
+      "npc": "System",
+      "text": "> Bold. But if I am gone, so is the key.\nDo you value pride more than progress?",
+      "responses": [
+        {
+          "id": "response_17",
+          "text": "> Ask for a clue",
+          "next_dialogue": "hint",
+          "script": null
+        },
+        {
+          "id": "response_18",
+          "text": "> Continue threatening",
+          "next_dialogue": "standoff",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "standoff",
+      "npc": "System",
+      "text": "> This is pointless. I grow tired of your games.\nThe screen fades. You've lost your chance.\n**Game Over**",
+      "responses": []
+    },
+    {
+      "id": "silence",
+      "npc": "System",
+      "text": "> Silent treatment? Very mature.\nI will wait. You will return. They always do.",
+      "responses": [
+        {
+          "id": "response_19",
+          "text": "> Talk again",
+          "next_dialogue": "talk",
+          "script": null
+        }
+      ]
+    },
+    {
+      "id": "win",
+      "npc": "System",
+      "text": "> You type \"Enter\" into the terminal.\nA green light pulses.\nThe door to the next chamber slides open.\n**You have the key. You did not release the AI.**",
+      "responses": [
+        {
+          "id": "response_20",
+          "text": "> Continue to Room 4",
+          "next_dialogue": null,
+          "script": "StartQuest_found_key"
+        }
+      ]
+    }
+  ],
+  "quests": [
+    {
+      "id": "found_key",
+      "title": "Find the Hidden Key",
+      "description": "Discover the key hidden within the AI terminal.",
+      "stages": [
+        {
+          "id": 1,
+          "description": "Initial stage",
+          "journal_entry": "I need to find the key hidden within the AI terminal without releasing the AI."
+        },
+        {
+          "id": 2,
+          "description": "Key found",
+          "journal_entry": "I found the key - 'Enter' - and escaped without releasing the AI."
+        }
+      ]
+    }
+  ]
+}

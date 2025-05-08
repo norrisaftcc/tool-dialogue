@@ -1,0 +1,48 @@
+{
+    "starting_dialogue": "start",
+    "dialogues": [
+        {
+            "id": "start",
+            "npc": "SYSTEM",
+            "text": "TERMINAL ONLINE. HOW MAY I ASSIST YOU?",
+            "responses": [
+                {
+                    "id": "response1",
+                    "text": "> Tell me more about this system.",
+                    "next_dialogue": "about"
+                },
+                {
+                    "id": "response2",
+                    "text": "> Exit terminal",
+                    "next_dialogue": null
+                }
+            ]
+        },
+        {
+            "id": "about",
+            "npc": "SYSTEM",
+            "text": "THIS IS A DIALOGUE SYSTEM TEMPLATE. YOU CAN MODIFY IT TO CREATE YOUR OWN INTERACTIVE NARRATIVES.",
+            "responses": [
+                {
+                    "id": "return_start",
+                    "text": "> Return to main menu",
+                    "next_dialogue": "start"
+                }
+            ]
+        }
+    ],
+    "quests": [
+        {
+            "id": "example_quest",
+            "title": "Example Quest",
+            "description": "This is an example quest to demonstrate the quest system.",
+            "stages": [
+                {
+                    "id": 1,
+                    "description": "First stage",
+                    "journal_entry": "This is what would appear in the player's quest log."
+                }
+            ]
+        }
+    ]
+}
