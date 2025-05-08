@@ -7,6 +7,27 @@ All notable changes to the Retro Terminal Dialogue System project will be docume
 - Visual dialogue tree editor
 - Enhanced import/export capabilities
 
+## [0.5.0] - 2025-05-08
+### Added
+- Complete architecture redesign with three-layer structure:
+  - Data layer for file operations
+  - Logic layer for game state and dialogue navigation
+  - GUI layer for Streamlit presentation
+- Enhanced dialogue navigation with more robust state management
+- Better condition evaluation and script handling
+- Support for completed quests display
+
+### Changed
+- Terminal simulator completely reimplemented with layered architecture
+- Improved file loading from conversations directory
+- Enhanced error handling and recovery
+- More robust dialogue state management
+
+### Fixed
+- Fixed issues with blank UI rendering
+- Fixed image display for character portraits
+- Added better handling for missing dialogues or files
+
 ## [0.4.0] - 2025-05-08
 ### Added
 - Comprehensive dialogue validator with reference checking and naming validation
